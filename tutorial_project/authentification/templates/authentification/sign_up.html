@@ -10,7 +10,7 @@
                 <div class="col-lg-3 col-12"><img src="{% static "images/logo.svg" %}" alt="" width="40" height="40"></div>
             </div>
             {% csrf_token %}
-            <div class="row gx-lg-5 gy-4">
+            <div class="row gx-lg-5 gy-4 mb-5">
                 {% for field in form %}
                     <div class="col-lg-6 col-12">
                         {{ field.label_tag }}
@@ -24,6 +24,7 @@
                     <button type="submit" class=" btn btn-dark">S'inscrire</button>
                 </div>
             </div>
+            <p class="text-center">vous avez déjà un compte ? <a href="{% url "login" %}">Connectez-vous</a></p>
         </form>
     </div>
     <style>
