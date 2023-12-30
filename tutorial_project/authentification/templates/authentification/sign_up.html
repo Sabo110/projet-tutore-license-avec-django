@@ -1,0 +1,75 @@
+{% extends "base1.html" %}
+{% load static %}
+{% block title %}sign up page{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <form action="" method="post">
+            <div class="row justify-content-around align-items-center  text-center mb-4 mt-3">
+                <div class="col-lg-7 col-12"><h2>Bienvenu chez Find Room</h2></div>
+                <div class="col-lg-3 col-12"><img src="{% static "images/logo.svg" %}" alt="" width="40" height="40"></div>
+            </div>
+            {% csrf_token %}
+            <div class="row gx-lg-5 gy-4">
+                {% for field in form %}
+                    <div class="col-lg-6 col-12">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <span class="text-danger"> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="col-lg-6 col-12 sub align-self-end">
+                    <button type="submit" class=" btn btn-dark">S'inscrire</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <style>
+        form{
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 45px;
+            
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #000000;
+          } /*
+        .header{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }*/
+
+        @media screen and (max-width: 575px) {
+            form{
+                width: 100%;
+            }
+        }
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            form{
+                width: 70%;
+            }
+        }
+        
+          
+    </style>
+
+    <script>
+        inputs = document.querySelectorAll('input')
+        selects = document.querySelectorAll('select')
+        buttons = document.querySelectorAll('button')
+        // Fusionnez les deux listes en une seule
+        tousLesChamps = Array.from(inputs).concat(Array.from(selects)).concat(Array.from(buttons));
+        console.log(inputs)
+        tousLesChamps.forEach(function(champ) {
+            champ.classList.add('form-control');
+        });
+    
+    </script>
+{% endblock content %}

@@ -1,0 +1,86 @@
+{% extends "base1.html" %}
+{% load static %}
+
+{% block title %} login page {% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}" class="">
+            {% csrf_token %}
+            
+            <div class="row text-center mb-4 mt-3">
+                <div class="col-12"><img src="{% static "images/logo.svg" %}" alt="" width="40" height="40"></div>
+                <div class="col-12"><h1>Connexion</h1></div>
+            </div>
+            {% if form.errors %}
+                <p class="alert alert-danger" role="alert">Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            <div class="row gy-3 mb-3">
+                {% for field in form %}
+                <div class="col-12">
+                        {{ field.label_tag }}
+                        {{ field }}
+                </div> 
+                {% endfor %}
+                <div class="col-12"><button type="submit" class=" btn btn-dark">Se Connecter</button></div>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}">
+            {# Assumes you set up the password_reset view in your URLconf #}
+            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+            <p>vous n'avez pas encore de compte ? <a href="{% url "sign_up" %}">Créer un compte</a></p>
+        </form>
+
+    
+
+        <style>
+            form{
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 45px;
+                
+            }
+            .form-control:focus {
+                box-shadow: none;
+                border-color: #000000;
+            }
+            @media screen and (max-width: 575px) {
+                form{
+                    width: 100%;
+                }
+            }
+            @media screen and (min-width: 992px) and (max-width: 1199px) {
+                form{
+                    width: 35%;
+                }
+            }
+            @media screen and (min-width: 1200px) {
+                form{
+                    width: 28%;
+                }
+            }
+            
+        </style>
+        <script>
+            inputs = document.querySelectorAll('input')
+            buttons = document.querySelectorAll('button')
+            // Fusionnez les deux listes en une seule
+            tousLesChamps = Array.from(inputs).concat(Array.from(buttons));
+            console.log(inputs)
+            tousLesChamps.forEach(function(champ) {
+                champ.classList.add('form-control');
+            });
+        </script>
+    </div>
+{% endblock content %}

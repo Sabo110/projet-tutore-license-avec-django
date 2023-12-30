@@ -9,7 +9,7 @@ class CustomUser(AbstractUser, Adress):
         ('client', 'Client'),
         ('owner', 'Owner'),
     ]
-    date_of_birth = models.DateField(null=False, blank=False)
+    date_of_birth = models.DateField(null=True, blank=False)
     phone_number = models.CharField(max_length=15, null=False, blank=False)
     account_type = models.CharField(max_length=10, choices=choices, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)# la date a laquelle le compte a ete cree
