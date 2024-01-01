@@ -8,8 +8,13 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body style="">
-    {% include "navbar1.html" %}
-    {% block content %}{% endblock content %}
-    {% include "footer.html" %}
+    <div id="div_res">
+        {% include "navbar1.html" %}
+        {% include "navbar2.html" %}
+        {% block content %}{% endblock content %}
+        {% include "nav_mobile.html" %}
+        {% include "footer.html" %}
+        
+    </div>
 </body>
 </html>

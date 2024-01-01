@@ -1,0 +1,47 @@
+{% load static %}
+<nav class="nav1 p-0">
+    <div class="row align-items-center mx-0 py-1">
+        <div class="col-lg-1 col-md-2 ">
+            <img src="{% static "images/logo.svg" %}" alt="logo" width="" height="" class="img-fluid">
+        </div>
+        <div class="col-lg-1 offset-lg-6 col-md-2 offset-md-3">
+            <a href="" id="home">Home</a>
+        </div>
+        <div class="col-lg-3 offset-lg-1 col-md-4  offset-md-1 text-end ">
+            <a href="" class="btn_l me-2">Login</a>
+            <a href="" class="btn_l">Sign up</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .nav1{
+        background-color: #075C67;
+    }
+    #home{
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+    .btn_l{
+        display: inline-block;
+        color: #000000;
+        text-decoration: none;
+        background-color: #FFFFFF;
+        padding: 10px 25px;
+        transition: .5s;
+    }
+    .btn_l:hover{
+        color: #FFFFFF;
+        background-color: #000000;
+    }
+    @media screen and (max-width: 767px) {
+        .nav1{
+            display: none;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        .nav1{
+            display: block;
+        }
+    }
+</style>

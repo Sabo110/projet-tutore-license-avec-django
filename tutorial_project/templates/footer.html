@@ -1,0 +1,28 @@
+{% load static %}
+<footer class="mt-3">
+    <div class="row mx-0">
+        <div class="col-12 text-center">
+            <img src="{% static "images/logo.svg" %}" alt="logo" class="img-fluid" width="200" height="200">
+        </div>
+        <div class="col-12 text-center">
+            <p>
+                @copiright tous droits reservés
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer{
+        background-color: #1D2121;
+        padding: 15px 8px;
+    }
+    footer p{
+        color: #FFFFFF;
+    }
+    @media screen and (max-width: 767px) {
+        footer{
+            margin-bottom: 35px;
+        }
+    }
+</style>

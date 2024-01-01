@@ -1,0 +1,19 @@
+{% load static %}
+<nav id="navbar2">
+    <div class="text-center">
+        <img src="{% static "images/logo.svg" %}" alt="logo" width="60" height="60" class="img-fluid">
+    </div>
+</nav>
+
+<style>
+    #navbar2{
+        background-color: #075C67;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    @media screen and (min-width: 768px) {
+        #navbar2{
+            display: none;
+        }
+    }
+</style>
