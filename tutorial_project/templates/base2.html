@@ -8,13 +8,13 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body style="">
-    <div id="div_res">
-        {% include "navbar1.html" %}
-        {% include "navbar2.html" %}
+    <div>
+        {% include "navbar1.html" %} <!--on inclu la barre de navigation qui va s'afficher sur ecran tablette et plus uniquement-->
+        {% include "navbar2.html" %} <!--on inclu la barre de navigation qui va s'afficher sur ecran mobile uniquement-->
         {% block content %}{% endblock content %}
-        {% include "nav_mobile.html" %}
-        {% include "footer.html" %}
-        
+        {% include "nav_mobile.html" %}<!--on inclu la barre de navigation fixe qui va s'afficher en bas sur ecran mobile uniquement-->
+        {% include "footer.html" %}<!--on inclu le pied de page qui sera sur toute les pages qui herite de ce template-->
+    
     </div>
 </body>
 </html>
