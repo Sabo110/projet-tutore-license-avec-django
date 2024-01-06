@@ -13,10 +13,10 @@
             {% endif %}
             
         </div>
-        <div class="col-lg-5 offset-lg-0 col-md-6  offset-md-0 text-end ">
+        <div class="col-lg-5 offset-lg-0 col-md-6  offset-md-0 text-end">
             {% if user.is_authenticated %}
                 <a href="{% url "login" %}" class="btn_l me-2">Mes reservations</a>
-                <a href="{% url "log_out" %}" class="btn_l">Se deconnecter</a>
+                <form action="{% url "logout" %}" method="post" class="d-inline-block"> {% csrf_token %} <button type="submit" class="btn_l">Se deconnecter</button> </form>
             {% else %}
                 <a href="{% url "login" %}" class="btn_l me-2">Se connecter</a>
                 <a href="{% url "sign_up" %}" class="btn_l">S'inscrire</a>
