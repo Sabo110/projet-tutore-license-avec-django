@@ -1,0 +1,152 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block title %}member page{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-3 mt-3 mt-3 sm-0">
+            <div class="col-12 align-self-center">
+                <h3 style="text-align:center;padding-top:10px">
+                    Rechercher une salle pour un évènement 
+                </h3>
+            </div>
+
+
+            <div class="col-sm-6 col-12" style="background-color:#F5F5F5; width:100%; height:450px">
+                <form action="" method="post" style="height:150px; width:100%;">
+                    <div class="row gx-lg-5 gy-4 mb-5">
+                        <div class="col-md-6">
+                            <label for="inputEmail4" class="form-label">type évènement</label>
+                            <select class="form-select" id="inlineFormSelectPref" required>
+                                <option>.........</option>
+                                <option value="1">Mariage</option>
+                                <option value="2">Anniversaire</option>
+                                <option value="3">Conférence</option>
+                                <option value="4">Reunion</option>
+                                <option value="5">Cerémonie</option>
+                              </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputEmail4" class="form-label">budget</label>
+                            <select class="form-select" id="inlineFormSelectPref" required>
+                                <option>.........</option>
+                                <option value="1">10000XAF - 30000XAF</option>
+                                <option value="2">30000XAF - 60000XAF</option>
+                                <option value="3">60000XAF - 90000XAF</option>
+                              </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputEmail4" class="form-label">ville</label>
+                            <input type="email" class="form-control" id="inputEmail4" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputEmail4" class="form-label">quartier</label>
+                            <input type="email" class="form-control" id="inputEmail4" required>
+                        </div>
+                        <div class="col-auto mx-auto">
+                            <button type="submit" class="btn" style="background-color:#075C67; color: #FFFFFF;">Rechercher</button>
+                        </div>
+                    </div>    
+                </form>
+            </div>
+
+
+           
+        </div>
+    </div>
+   
+    <div class="container-fluid_2">
+        <div class="row g-2" >
+            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:30px; margin-bottom:10px">
+                <p style="margin-top:20px; margin-left:30px">prix journalier: 8000XAF</p>
+                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
+                    détail
+                </a>
+                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 15h50</p>
+            </div>
+            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:30px; margin-bottom:10px">
+                <p style="margin-top:20px; margin-left:30px">prix journalier: 7500XAF</p>
+                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
+                    détail
+                </a>
+                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 22h00</p>
+            </div>
+            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:20px; margin-bottom:70px">
+                <p style="margin-top:20px; margin-left:30px">prix journalier: 2000XAF</p>
+                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
+                    détail
+                </a>
+                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 9h10</p>
+            </div>
+            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:20px; margin-bottom:70px">
+                <p style="margin-top:20px; margin-left:30px">prix journalier: 5000XAF</p>
+                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
+                    détail
+                </a>
+                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 18h45</p>
+            </div>
+            
+        </div>
+        <div class="row g-2" >
+            <nav aria-label="Page navigation example" style="margin-bottom:30px;">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>  
+    </div>
+    <style>
+        .container-fluid_2{
+            background-color:#075C67
+        }
+        #div_en{
+            background-color: #444444;
+        }
+        #div_en>h3{
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+        }
+        #btn_reserver{
+            font-size: 19px;
+            background-color: #075C67;
+            color: #FFFFFF;
+            transition: .5s;
+            margin-top: 5px;
+        }
+        #btn_detail{
+            font-size: 19px;
+            background-color: #075C67;
+            color: #FFFFFF;
+            margin-top: 5px;
+            text-decoration: none;
+            text-align: center;
+         
+        }
+        #btn_reserver:hover{
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        @media screen and (max-width: 767px) {
+            #div_en>h3{
+                padding: 20px 5px;
+                font-size: 16px;
+            }
+            h2{
+                font-size: 19px;
+            }
+            #btn_reserver{
+                font-size: 17px;
+            }
+        }
+    </style>
+{% endblock content %}
