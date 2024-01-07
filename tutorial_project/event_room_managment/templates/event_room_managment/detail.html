@@ -1,0 +1,40 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block title %}member page{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-3 mt-3 mt-3 sm-0">
+            <div class="col-12 align-self-center">
+                <h3 style="text-align:center;padding-top:10px">
+                    Détail de la reservation
+                </h3>
+            </div>
+            <HR>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="">Tarif journalier:</span>
+                        <span class="" style="color:#16139D">5000XAF</span>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <p> Réservation  pour le 2 mars - 6 mars 2023 </p>
+                    </div>
+                    <div class="col-12">
+                        <p> Localisation de la salle: Yaoundé - Obili </p>
+                    </div>
+                    <div class="col-12">
+                        <p> Quelques images de la salle: </p>
+                    </div>
+                   
+                </div>
+        <div class="container">
+        <div class="row g-2 mb-2">
+            <div class="col-12 col-sm-6"><img src="{% static "images/image4.jpg" %}" alt="" class="img-fluid mx-auto"></div>
+            <div class="col-12 col-sm-6"><img src="{% static "images/image4.jpg" %}" alt="" class="img-fluid mx-auto"></div>
+            </div>
+        </div>        
+
+    </div>
+
+{% endblock content %}
