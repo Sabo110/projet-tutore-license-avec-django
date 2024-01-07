@@ -1,0 +1,50 @@
+{% extends "base2.html" %}
+
+{% block content %}
+   <div class="container-fluid min-vh-100">
+        <div class="row">
+            <div class="col-12">
+                <h5>Nom d'utilisateur:</h5>
+                <p> {{ user.username }} </p>
+            </div>
+            <div class="col-12">
+                <h5>Nom :</h5>
+                <p> {{ user.last_name }} </p>
+            </div>
+            {% if user.first_name %}
+                <div class="col-12">
+                    <h5>Prenom:</h5>
+                    <p> {{ user.first_name }} </p>
+                </div>
+            {% endif %}
+            <div class="col-12">
+                <h5>Date de naissance:</h5>
+                <p>{{ user.date_of_birth|date:'j F Y' }} </p>
+            </div>
+            <div class="col-12">
+                <h5>Adresse email:</h5>
+                <p>{{ user.email }} </p>
+            </div>
+            <div class="col-12">
+                <h5>Type de compte:</h5>
+                <p>{{ user.account_type }} </p>
+            </div>
+        </div>
+        <div class="text-end mt-5">
+            <form action="{% url "logout" %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-success">Se deconnecter</button>
+            </form>
+        </div>
+   </div>
+
+   <style>
+        h5{
+            margin: 0;
+            display: inline-block;
+        }
+        p{
+            display: inline-block;
+        }
+   </style>
+{% endblock content %}

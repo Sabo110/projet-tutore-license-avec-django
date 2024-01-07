@@ -2,10 +2,10 @@
 {% load static %}
 <nav class="nav1 p-0">
     <div class="row align-items-center mx-0 py-1">
-        <div class="col-lg-1 col-md-2 ">
+        <div class="col-1">
             <img src="{% static "images/logo.svg" %}" alt="logo" width="" height="" class="img-fluid">
         </div>
-        <div class="col-lg-1 offset-lg-5 col-md-2 offset-md-2">
+        <div class="col text-center">
             {% if user.is_authenticated %} 
                 <p style="color: white;">salut {{ user.username }}</p>
             {% else %}
@@ -13,8 +13,16 @@
             {% endif %}
             
         </div>
-        <div class="col-lg-5 offset-lg-0 col-md-6  offset-md-0 text-end">
+        <div class="col-auto">
             {% if user.is_authenticated %}
+                <div class="dropdown d-inline-block me-5">
+                    <button class="btn btn-light btn-sm dropdown-toggle rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url "member_page" %}">Page membre</a></li>
+                        <li><a class="dropdown-item" href="{% url "profile" %}">Profile</a></li>
+                    </ul>
+                </div>
                 <a href="{% url "login" %}" class="btn_l me-2">Mes reservations</a>
                 <form action="{% url "logout" %}" method="post" class="d-inline-block"> {% csrf_token %} <button type="submit" class="btn_l">Se deconnecter</button> </form>
             {% else %}

@@ -7,3 +7,7 @@ def home_page(request):
 # la fonction qui gere l'affichage de la page membre ou member page
 def member_page(request):
     return render(request, 'event_room_managment/member_page.html')
+
+# fonction qui affiche l'affichage du profil de l'utilisateur ie nom , date de naissance ...
+def profile(request):
+    return render(request, 'event_room_managment/profile.html')
