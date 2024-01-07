@@ -11,3 +11,7 @@ def member_page(request):
 # fonction qui affiche l'affichage du profil de l'utilisateur ie nom , date de naissance ...
 def profile(request):
     return render(request, 'event_room_managment/profile.html')
+
+# fonction qui affiche le détail sur une réservation
+def detail(request):
+    return render(request, 'event_room_managment/detail.html')
