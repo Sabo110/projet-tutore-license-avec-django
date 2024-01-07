@@ -30,10 +30,10 @@
                 <p>{{ user.account_type }} </p>
             </div>
         </div>
-        <div class="text-end mt-5">
+        <div class="mt-5 d-md-none">
             <form action="{% url "logout" %}" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-success">Se deconnecter</button>
+                <button type="submit" class="btn btn-sm btn-success">Se déconnecter</button>
             </form>
         </div>
    </div>
