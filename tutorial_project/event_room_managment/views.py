@@ -15,3 +15,7 @@ def profile(request):
 # fonction qui affiche le détail sur une réservation
 def detail(request):
     return render(request, 'event_room_managment/detail.html')
+
+ # fonction qui affiche la page de demande d'une réservation
+def demande(request):
+    return render(request, 'event_room_managment/demande.html')   

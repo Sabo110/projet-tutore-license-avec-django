@@ -9,5 +9,6 @@ urlpatterns = [
     path('members/', views.member_page, name='member_page'),
     path('profile/', views.profile, name='profile'),
     path('detail/', views.detail, name='detail'),
+    path('demande/', views.demande, name='demande'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # l'ajout de ce parametre (+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)) permet l'affichage en front des fichiers statique comme les iamges
