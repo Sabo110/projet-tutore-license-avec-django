@@ -23,3 +23,7 @@ def demande(request):
 # fonction qui affiche la page de réservation
 def reservation(request):
     return render(request, 'event_room_managment/reservation.html')   
+
+# fonction qui affiche la page room detail
+def room_detail(request):
+    return render(request, 'event_room_managment/room_detail.html')   
