@@ -1,6 +1,6 @@
 <!--barre de navigation pour ecran tablette et plus-->
 {% load static %}
-<nav class="nav1 p-0">
+<nav class="nav1 py-lg-0 py-md-2">
     <div class="row align-items-center mx-0 py-1">
         <div class="col-1">
             <img src="{% static "images/logo.svg" %}" alt="logo" width="" height="" class="img-fluid">
@@ -13,28 +13,69 @@
             {% endif %}
             
         </div>
-        <div class="col-auto">
-            {% if user.is_authenticated %}
-                <div class="dropdown d-inline-block me-5">
-                    <button class="btn btn-light btn-sm dropdown-toggle rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url "member_page" %}">Page membre</a></li>
-                        <li><a class="dropdown-item" href="{% url "profile" %}">Profile</a></li>
-                    </ul>
+        <div class="col-auto me-3">
+            <div class="btn-group">
+                <button type="button" class="btn btn-light rounded-circle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Menu
+                </button>
+                <div class="dropdown-menu dropdown-menu-end main_menu">
+                    <!--si l'utilisateur est connecte et son type de compte est client-->
+                    {% if user.is_authenticated and user.account_type == 'client' %}
+                        <a href="{% url "sign_up" %}" class="lien">Mes reservations</a>
+                        <a href="{% url "login" %}" class="lien">Rechercher une sale</a>
+                    <!--si l'utilisateur est connecte et son type de compte est owner-->
+                    {% elif user.is_authenticated and user.account_type == 'owner' %}
+                        <a href="{% url "sign_up" %}" class="lien">Mes reservations</a>
+                        <a href="{% url "sign_up" %}" class="lien">Mes sales</a>
+                        <a href="{% url "sign_up" %}" class="lien">Publier une sale</a>
+                    <!--s'il n'est pas connecte-->
+                    {% else %}
+                        <a href="{% url "sign_up" %}" class="lien">S'inscrire</a>
+                        <a href="{% url "login" %}" class="lien">Se connecter</a>
+                    {% endif %}
+                    <!--si l'utilisateur est connecte-->
+                    {% if user.is_authenticated %}
+                        <li><hr class="dropdown-divider"></li>
+                            <form action="{% url "logout" %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Se déconnecter" id="logout">
+                            </form>
+                    {% endif %}
                 </div>
-                <a href="{% url "login" %}" class="btn_l me-2">Mes reservations</a>
-                <form action="{% url "logout" %}" method="post" class="d-inline-block"> {% csrf_token %} <button type="submit" class="btn_l">Se deconnecter</button> </form>
-            {% else %}
-                <a href="{% url "login" %}" class="btn_l me-2">Se connecter</a>
-                <a href="{% url "sign_up" %}" class="btn_l">S'inscrire</a>
-            {% endif %}
-            
+            </div>
         </div>
     </div>
 </nav>
 
 <style>
+    .main_menu{
+        width: 250px;
+    }
+    .lien{
+        display:  block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 18px;
+        text-decoration: none;
+        color: #000;
+    }
+    .lien:hover{
+        color: #FFF;
+        background-color: #075C67;
+    }
+    #logout{
+        border: none;
+        width: 100%;
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 18px;
+        background-color: #FFF;
+    }
+    #logout:hover{
+        color: #FFF;
+        background-color: #075C67;
+    }
     .nav1{
         background-color: #075C67;
     }
