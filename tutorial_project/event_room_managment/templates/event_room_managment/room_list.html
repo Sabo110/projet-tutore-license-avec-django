@@ -1,0 +1,55 @@
+{% extends "base2.html" %}
+
+{% block title %}room list{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h3 class="my-4">Mes sales:</h3>
+        <div class="row my-3 gy-3 gx-sm-3  justify-content-center">
+            {% for room in room_list %}
+                <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                    <div class="card mx-auto mx-sm-0" style="max-width: 18rem;">
+                        <img src=" {{ room.pictures.all.0.file.url }} " class="card-img-top" alt="..." style="object-fit: cover; height: 230px;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ room.city }} - {{ room.neighborhood }}  </h5>
+                          <p class="card-text">prix journalier:  <strong> {{ room.daily_rate }}XAF</strong></p>
+                          <a href="#" class="btn btn-success btn-sm">Modifier</a>
+                          <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
+                        </div>
+                      </div>
+                </div>
+                <!--<div class="col-lg-4 col-md-6 col-sm-8 col-12 border border-primary mx-auto" style="background-color: #075C67;">
+                    <div class="div-images"><img src=" {{ room.pictures.all.0.file.url }} " class="img-fluid image" alt="..." style="max-height: 100%;"></div>
+                    <h5 class="text-capitalize">Situé à {{ room.city }} - {{ room.neighborhood }} </h5>
+                    <p class="text-capitalize">prix journalier:  <strong> {{ room.daily_rate }}XAF</strong></p>
+                    <a href="#" class="btn btn-success">Modifier</a>
+                    <a href="#" class="btn btn-danger">Supprimer</a>
+                </div>-->
+            {% endfor %}
+        </div>
+    </div>
+   
+    <style>
+        @media screen and (max-width: 575px) {
+            h5{
+                font-size: 15px;
+            }
+            }
+        
+    </style>
+
+    <script>/*
+        // on selectionne toutes les images ayant pour classe image
+        images = document.querySelectorAll('.image')
+        // Trouvez la hauteur minimale parmi toutes les imges
+        minHeight = Math.min.apply(null, Array.from(images).map(function (col) {
+            return col.offsetHeight;
+        }));
+        // on selectionne toutes les div ayant pour classe div-images
+        div_images = document.querySelectorAll('.div-images')
+        // Appliquez la hauteur minimale à toutes div-images
+        Array.from(div_images).forEach(function(col) {
+            col.style.height = minHeight + 'px';
+        });
+    </script>
+{% endblock content %}

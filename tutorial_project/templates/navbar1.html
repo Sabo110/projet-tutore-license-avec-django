@@ -26,8 +26,8 @@
                     <!--si l'utilisateur est connecte et son type de compte est owner-->
                     {% elif user.is_authenticated and user.account_type == 'owner' %}
                         <a href="{% url "sign_up" %}" class="lien">Mes reservations</a>
-                        <a href="{% url "sign_up" %}" class="lien">Mes sales</a>
-                        <a href="{% url "sign_up" %}" class="lien">Publier une sale</a>
+                        <a href="{% url "room_list" %}" class="lien">Mes sales</a>
+                        <a href="{% url "create_room" %}" class="lien">Publier une sale</a>
                     <!--s'il n'est pas connecte-->
                     {% else %}
                         <a href="{% url "sign_up" %}" class="lien">S'inscrire</a>

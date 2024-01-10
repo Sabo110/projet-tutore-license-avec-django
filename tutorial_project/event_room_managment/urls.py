@@ -11,6 +11,10 @@ urlpatterns = [
     path('detail/', views.detail, name='detail'),
     path('demande/', views.demande, name='demande'),
     path('reservation/', views.reservation, name='reservation'),
-    path('room/', views.room_detail, name='room_detail' )
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# l'ajout de ce parametre (+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)) permet l'affichage en front des fichiers statique comme les iamges
+    path('room/', views.room_detail, name='room_detail' ),
+    path('create_room/', views.CreateRoom.as_view(), name='create_room'),
+    path('room_list/', views.RoomList.as_view(), name='room_list')
+] 
+# Servir les fichiers médias en mode développement
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

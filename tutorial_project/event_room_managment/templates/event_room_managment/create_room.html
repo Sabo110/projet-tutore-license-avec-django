@@ -1,0 +1,91 @@
+{% extends "base2.html" %}
+
+{% block title %} create room {% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <form action="" method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <div class="row gy-3">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>    
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <h4 class="text-center mt-0">Publier une sale</h4>
+                <!--pour chaque champ dans le formulaire-->
+                {% for field in form %}
+                    <div class="col-12 col-md-6 align-self-center">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        <span class="opacity-50">{{ field.help_text }}</span>
+                        {% for error in field.errors %}
+                            <span class="text-danger"> {{ error }} </span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success">Publier</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        .form{
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 45px;
+            margin-top: 40px;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #000000;
+          }
+
+        @media screen and (max-width: 575px) {
+            .form{
+                width: 100%;
+            }
+        }
+        @media screen and (min-width: 576px) and (max-width: 767px) {
+            .form{
+                width: 60%;
+            }
+        }
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+            .form{
+                width: 85%;
+            }
+        }
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .form{
+                width: 75%;
+            }
+        }
+        @media screen and (min-width: 1200px) {
+            .form{
+                width: 50%;
+            }
+        }
+    </style>
+
+    <script>
+        inputs_text = document.querySelectorAll('input[type="text"]')
+        input_number = document.querySelectorAll('input[type="number"]')
+        input_file = document.querySelectorAll('input[type="file"]')
+        selects = document.querySelectorAll('select')
+        buttons = document.querySelectorAll('button')
+        textarea = document.querySelectorAll('textarea')
+        // Fusionnez les deux listes en une seule
+        tousLesChamps = Array.from(inputs_text).concat(Array.from(selects)).concat(Array.from(buttons)).concat(Array.from(textarea)).concat(Array.from(input_number)).concat(Array.from(input_file));
+        tousLesChamps.forEach(function(champ) {
+            champ.classList.add('form-control');
+        });
+    </script>
+{% endblock content %}
