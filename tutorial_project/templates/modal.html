@@ -1,0 +1,23 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Supprimer
+</button>
+  
+  <!--Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la sale</h1>
+           <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+        </div>
+        <div class="modal-body">
+          Voulez-vous supprimer cette sale ? cette action est irréversible
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">Non</button>
+          <a href="{% url "delete_room" id=room.id %}?page={{page_obj.number}}" class="btn btn-danger px-4">oui</a>
+        </div>
+      </div>
+    </div>
+  </div>

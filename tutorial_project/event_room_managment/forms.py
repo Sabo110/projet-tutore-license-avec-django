@@ -20,7 +20,7 @@ class MultipleFileField(forms.FileField):
             result = single_file_clean(data, initial)
         return result
     
-# on cree le formulaire qui pa permettre la creation d'une sale
+# on cree le formulaire qui va permettre la creation d'une sale
 class RoomForm(forms.ModelForm):
     class Meta:
         model = Room # le model qui va permettre de creer des instance du formualire
@@ -36,6 +36,23 @@ class RoomForm(forms.ModelForm):
     typ = forms.ChoiceField(choices=choices, label='type') # je change le label de ce champ en type
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), help_text='champ facultatif', required=False)
     images = MultipleFileField(required=True)
+
+# on cree le formulaire qui va permettre la modification d'une sale
+class RoomFormUpdate(forms.ModelForm):
+    class Meta:
+        model = Room # le model qui va permettre de creer des instance du formualire
+        fields = ['typ', 'daily_rate', 'city', 'neighborhood', 'description', 'images'] # les champs qui seront present dans le formulaire
+
+    choices = [
+    ('mariage', 'Mariage'),
+    ('anniversaire', 'Anniversaire'),
+    ('conference', 'Conference'),
+    ('reunion', 'Reunion'),
+    ('ceremonie', 'Ceremonie'),
+    ]
+    typ = forms.ChoiceField(choices=choices, label='type') # je change le label de ce champ en type
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), help_text='champ facultatif', required=False)
+    images = MultipleFileField(required=False)
     
 
     

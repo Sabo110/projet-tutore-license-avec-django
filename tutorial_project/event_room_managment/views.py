@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, ListView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import CreateView, UpdateView
 from django.contrib import messages
 from django.urls import reverse_lazy
-
+from django.core.paginator import Paginator
 
 from .models import Room, Picture
-from .forms import RoomForm
+from .forms import RoomForm, RoomFormUpdate
 
 
 # la fonction qui gere l'affichage de la page d'accueil ou home page
@@ -36,6 +36,8 @@ def reservation(request):
 def room_detail(request):
     return render(request, 'event_room_managment/room_detail.html')   
 
+
+
 # la classe qui va gerer la creation d'une sale
 class CreateRoom(CreateView):
     model = Room
@@ -50,13 +52,79 @@ class CreateRoom(CreateView):
         room = form.save()
         for image in images:
             Picture.objects.create(file=image, room=room)
-        messages.success(self.request, "sale publié avec succès")
+        messages.success(self.request, "sale publié avec succès")# le message de succes qui sera affcihe une fois l'objet cree
         return super().form_valid(form)
 
-# la class qui gere l'affichage des sales(room)
-class RoomList(ListView):
+
+
+#la fonction qui affiche les sales cree ou publie par un utilisateur(owner)
+def RoomList(request):
+    # on recupere l'utilisateur connecte
+    user = request.user
+    # on recupere ses sales
+    room_list = user.sales.all()
+    # on cree une pagination de 6 element par page
+    paginator = Paginator(room_list, 6)
+    # on recupere le numero de la page courante
+    page_number = request.GET.get("page")
+    # on recupere les elemnts de la page courante
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'event_room_managment/room_list.html', {'page_obj': page_obj})
+
+
+
+# la classe qui va gerer la modification d'une sale
+class UpdateRoom(UpdateView):
     model = Room
-    template_name = 'event_room_managment/room_list.html'
-    context_object_name = 'room_list' #le nom de la variable qui sera disponible dans le template pour afficher la liste de sales
+    form_class = RoomFormUpdate
+    template_name = 'event_room_managment/update_room.html'
+    success_url = reverse_lazy('room_list')
+
+    # la methode pour ajouter des valeurs au context
+    def get_context_data(self, **kwargs: reverse_lazy):
+        context = super().get_context_data(**kwargs)
+        # on recupere le numero de la page dont l'objet a modifier provient
+        num = self.request.GET.get('page', '1')
+        context['num_page'] = num
+        return context
+    
+    # la fonction qui va diriger l'utilisateur une fois la modification efectue avec succes
+    def get_success_url(self) -> str:
+        context = self.get_context_data() # on recupere le context
+        num = context['num_page']
+        url = reverse_lazy('room_list') # on genere l'url a aprtir du nom de l'url
+        return f'{url}?page={num}'
+                            
+    # la methode qui est execute une fois le formualire soumit(ie apres le clic sur submit) et valide
+    def form_valid(self, form):
+        # on recupere les nouvelles images si l'utilisateur a uploadé de nouvelles
+        images = form.cleaned_data['images']
+        if images:
+            # je recupere les anciennes images lie a cet objet
+            anniennes_images = self.get_object().pictures.all()
+            # on les supprimes
+            for image in anniennes_images:
+                image.delete()
+            # on lie les nouvelles images a l'objet modifie
+            for image in images:
+                Picture.objects.create(file=image, room=self.object)
+        messages.success(self.request, "sale modifié avec succès")
+        return super().form_valid(form)
+
+
+
+#la fonction pour supprimer une sale
+def DeleteRoom(request, id):
+    # on recupere le numero de la page d'ou provient l'objet a supprimer
+    num_page = request.GET.get('page', '1')
+    # je recupere l'objet a supprimer
+    obj = get_object_or_404(Room, id=id)
+    # je supprime l'objet
+    obj.delete()
+    # je cree le message de succes qui sera afficher a l'utilisateur une fois l'objet supprimé
+    messages.success(request, f"sale {obj.city} - {obj.neighborhood} supprimé avec succès")
+    url = reverse_lazy('room_list') + f'?page={num_page}' # on cree l'url 
+    # je dirige vers l'url
+    return redirect(url)
 
     

@@ -3,30 +3,30 @@
 {% block title %}room list{% endblock title %}
 
 {% block content %}
-    <div class="container">
-        <h3 class="my-4">Mes sales:</h3>
+    <div class="container min-vh-100">
+        {% if page_obj.paginator.count != 0 %}
+            <h3 class="my-4">Mes sales:</h3>
+        {% else %}
+            <h3 class="my-4">Vous n'avez aucune sale disponible</h3>
+        {% endif %}
+        
+        {% include "flashback_success.html" %}
         <div class="row my-3 gy-3 gx-sm-3  justify-content-center">
-            {% for room in room_list %}
+            {% for room in page_obj %}
                 <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
                     <div class="card mx-auto mx-sm-0" style="max-width: 18rem;">
-                        <img src=" {{ room.pictures.all.0.file.url }} " class="card-img-top" alt="..." style="object-fit: cover; height: 230px;">
+                        <img src=" {{ room.pictures.all.0.file.url }} " class="card-img-top" alt="..." style="object-fit: contain">
                         <div class="card-body">
-                          <h5 class="card-title">{{ room.city }} - {{ room.neighborhood }}  </h5>
-                          <p class="card-text">prix journalier:  <strong> {{ room.daily_rate }}XAF</strong></p>
-                          <a href="#" class="btn btn-success btn-sm">Modifier</a>
-                          <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
+                          <h5 class="card-title text-capitalize">{{ room.city }} - {{ room.neighborhood }}  </h5>
+                          <p class="card-text text-capitalize">prix journalier:  <strong> {{ room.daily_rate }}XAF</strong></p>
+                          <a href="{% url "update_room" pk=room.id %}?page={{ page_obj.number }}" class="btn btn-success btn-sm">Modifier</a>
+                          {% include "modal.html" %}
                         </div>
                       </div>
                 </div>
-                <!--<div class="col-lg-4 col-md-6 col-sm-8 col-12 border border-primary mx-auto" style="background-color: #075C67;">
-                    <div class="div-images"><img src=" {{ room.pictures.all.0.file.url }} " class="img-fluid image" alt="..." style="max-height: 100%;"></div>
-                    <h5 class="text-capitalize">Situé à {{ room.city }} - {{ room.neighborhood }} </h5>
-                    <p class="text-capitalize">prix journalier:  <strong> {{ room.daily_rate }}XAF</strong></p>
-                    <a href="#" class="btn btn-success">Modifier</a>
-                    <a href="#" class="btn btn-danger">Supprimer</a>
-                </div>-->
             {% endfor %}
         </div>
+        {% include "pagination.html" %}
     </div>
    
     <style>
@@ -51,5 +51,16 @@
         Array.from(div_images).forEach(function(col) {
             col.style.height = minHeight + 'px';
         });
+        */
+        btns_sup = document.querySelectorAll('#btn_sup')
+        console.log(btn_sup)
+        console.log('yes')
+        btns_sup.forEach((element) => {
+            // j'ecoute l'evenement clic sur le bouton supprimer
+            element.addEventListener('click', (event) => {
+              event.preventDefault();
+              
+            });
+          });
     </script>
 {% endblock content %}

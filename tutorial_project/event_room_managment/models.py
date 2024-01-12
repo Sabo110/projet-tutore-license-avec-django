@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+import os
 
 # creons notre classe abstraite adress
 class Adress(models.Model):
@@ -34,4 +37,13 @@ class Reservation(models.Model):
     confirm_or_no = models.BooleanField(null=True) # confirmé ou non
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='reservations')
     client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
+
+# on ecouteurs d'evenement sur la suppression d'une instance du model picture
+@receiver(post_delete, sender=Picture)
+def gestionnaire_post_delete_image(sender, instance, **kwargs):
+    # Cette fonction sera appelée après que l'objet Image a été supprimé de la base de données.
+
+    # on supprime l'image dans le dossier physique de l'application
+    os.remove(os.path.join(settings.MEDIA_ROOT, instance.file.name))#instance.file.name : contient le chemin de l'image dans la bd
+
     

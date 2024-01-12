@@ -13,7 +13,9 @@ urlpatterns = [
     path('reservation/', views.reservation, name='reservation'),
     path('room/', views.room_detail, name='room_detail' ),
     path('create_room/', views.CreateRoom.as_view(), name='create_room'),
-    path('room_list/', views.RoomList.as_view(), name='room_list')
+    path('room_list/', views.RoomList, name='room_list'),
+    path('detele_room/<int:id>/', views.DeleteRoom, name='delete_room'),
+    path('update_room/<int:pk>/', views.UpdateRoom.as_view(), name='update_room')
 ] 
 # Servir les fichiers médias en mode développement
 if settings.DEBUG:

@@ -1,0 +1,11 @@
+<!--le template pour les messages de succes a afficher a l'utilisateur, 
+    par exemple apres la creation d'une sale un message de succes s'affiche specifiant que la sale a ete cree avec succès
+-->
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>    
+    {% endfor %}
+{% endif %}
