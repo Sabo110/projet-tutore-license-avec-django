@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 
 from .models import Room, Picture
-from .forms import RoomForm, RoomFormUpdate
+from .forms import RoomForm, RoomFormUpdate, SearchRoomForm
 
 
 # la fonction qui gere l'affichage de la page d'accueil ou home page
@@ -14,7 +14,25 @@ def home_page(request):
 
 # la fonction qui gere l'affichage de la page membre ou member page
 def member_page(request):
-    return render(request, 'event_room_managment/member_page.html')
+    # on verifie si l'utilisateur a soumis le formulaire
+    if request.method == 'POST':
+        # Associez le formulaire aux données POST
+        form = SearchRoomForm(request.POST)
+        # si le formulaire est valide
+        if form.is_valid():
+            #on recupere les donnees pour filtrer la recherche
+            typ = form.cleaned_data.get('typ')
+            daily_rate = form.cleaned_data.get('daily_rate')
+            city = form.cleaned_data.get('city')
+            neighborhood = form.cleaned_data.get('neighborhood')
+            # on effectue la requete
+            rooms = Room.objects.filter(typ=typ, city__icontains=city, neighborhood__icontains=neighborhood, daily_rate__lte=daily_rate)
+    else:
+        # on cree une instance du formulaire
+        form = SearchRoomForm()
+        rooms = []
+   
+    return render(request, 'event_room_managment/member_page.html', {'form': form, 'rooms': rooms})
 
 # fonction qui affiche l'affichage du profil de l'utilisateur ie nom , date de naissance ...
 def profile(request):
@@ -126,5 +144,9 @@ def DeleteRoom(request, id):
     url = reverse_lazy('room_list') + f'?page={num_page}' # on cree l'url 
     # je dirige vers l'url
     return redirect(url)
+
+
+
+
 
     

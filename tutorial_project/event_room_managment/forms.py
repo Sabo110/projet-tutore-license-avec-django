@@ -53,6 +53,17 @@ class RoomFormUpdate(forms.ModelForm):
     typ = forms.ChoiceField(choices=choices, label='type') # je change le label de ce champ en type
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), help_text='champ facultatif', required=False)
     images = MultipleFileField(required=False)
+
+# formulaire pour rechercher une sale
+class SearchRoomForm(forms.ModelForm):
+    # on cree un tuple a chaque itteration avec comme valeur le prix de la sale
+    daily_rate_all = [(room.daily_rate, room.daily_rate) for room in Room.objects.all()]
+    daily_rate = forms.ChoiceField(choices=daily_rate_all)
+    city = forms.CharField(required=False)
+    neighborhood = forms.CharField(required=False)
+    class Meta:
+        model = Room
+        fields = ['typ', 'city', 'neighborhood', 'daily_rate']
     
 
     

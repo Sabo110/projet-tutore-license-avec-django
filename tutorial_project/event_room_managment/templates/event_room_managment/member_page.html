@@ -15,10 +15,11 @@
 
             <div class="col-sm-6 col-12" style="background-color:#F5F5F5; width:100%; height:450px">
                 <form action="" method="post" style="height:150px; width:100%;">
-                    <div class="row gx-lg-5 gy-4 mb-5">
+                    {% csrf_token %}
+                    <!--<div class="row gx-lg-5 gy-4 mb-5">
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">type évènement</label>
-                            <select class="form-select" id="inlineFormSelectPref" required>
+                            <select class="form-select" id="inlineFormSelectPref" name="room_type" required>
                                 <option>.........</option>
                                 <option value="1">Mariage</option>
                                 <option value="2">Anniversaire</option>
@@ -29,23 +30,34 @@
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">budget</label>
-                            <select class="form-select" id="inlineFormSelectPref" required>
+                            <select class="form-select" id="inlineFormSelectPref" name="daily_rate" required>
                                 <option>.........</option>
-                                <option value="1">10000XAF - 30000XAF</option>
+                                <option value="1">10000</option>
                                 <option value="2">30000XAF - 60000XAF</option>
                                 <option value="3">60000XAF - 90000XAF</option>
                               </select>
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">ville</label>
-                            <input type="email" class="form-control" id="inputEmail4" required>
+                            <input type="text" class="form-control" id="inputEmail4" name="city" required>
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">quartier</label>
-                            <input type="email" class="form-control" id="inputEmail4" required>
+                            <input type="text" class="form-control" id="inputEmail4" name="neighborhood" required>
                         </div>
                         <div class="col-auto mx-auto">
                             <button type="submit" class="btn" style="background-color:#075C67; color: #FFFFFF;">Rechercher</button>
+                        </div>
+                    </div>-->
+                    <div class="row mt-4">
+                        {% for field in form %}
+                            <div class="col-sm-6 col-12">
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mx-auto mt-4">
+                            <input type="submit" value="Rechecher" id="btn_detail">
                         </div>
                     </div>    
                 </form>
@@ -56,15 +68,20 @@
         </div>
     </div>
    
-    <div class="container-fluid_2">
-        <div class="row g-2 mx-0" >
-            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:30px; margin-bottom:10px">
-                <p style="margin-top:20px; margin-left:30px">prix journalier: 8000XAF</p>
-                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
-                    détail
-                </a>
-                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 15h50</p>
-            </div>
+    <div class="container-fluid_2 container-fluid">
+        <div class="row g-2 py-3 justify-content-center" >
+            {% for room in rooms %}
+                <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 " style="">
+                    <div class="card" style="max-width: 18rem; height: 100%;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ room.city }} - {{ room.neighborhood }}</h5>
+                          <p class="card-text">Prix journalier: <strong>{{ room.daily_rate }}XAF</strong></p>
+                          <a href="#" class="btn btn-dark py-1 px-4">Reserver</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!--
             <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:30px; margin-bottom:10px">
                 <p style="margin-top:20px; margin-left:30px">prix journalier: 7500XAF</p>
                 <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
@@ -102,7 +119,8 @@
                     </li>
                 </ul>
             </nav>
-        </div>  
+         </div>-->
+        </div>
     </div>
     <style>
         .container-fluid_2{
@@ -126,4 +144,17 @@
             }
         }
     </style>
+
+    <script>
+        // Récupère tous les éléments input et select du document
+        inputElements = document.querySelectorAll('input');
+        selectElements = document.querySelectorAll('select');
+        // Combine les listes d'éléments en une seule liste
+        allElements = Array.from(inputElements).concat(Array.from(selectElements));
+        allElements.forEach(function(currentElement) {
+            // ajoutons la classe form-control a chaque elements
+            currentElement.classList.add('form-control');
+        });
+
+    </script>
 {% endblock content %}
