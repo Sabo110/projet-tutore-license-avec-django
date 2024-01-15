@@ -5,16 +5,18 @@
             <span class="" style="color:#16139D"> <strong> {{ room.daily_rate }}XAF </strong> </span>
         </div>
         <div class="col-12 mt-2">
-            <p> <strong>Tarif journalier:</strong> {{ room.owner.first_name }} </p>
+            <p> <strong>Propriétaire:</strong> {{ room.owner.first_name }} </p>
         </div>
         <!--on verifie si la salle contient des reservation-->
         {% if room.reservations.all %}
             <p class="m-0"> Salle prise pour les dates suivantes: </p>
             <!--on parcour toutes les reservation de la salle-->
             {% for row in room.reservations.all  %}
-                <div class="col-12">
-                    <span class="text-primary" style="color:#16139D"> {{ row.begin_date|date:"j F Y" }} - {{ row.end_date|date:"j F Y" }}  </span>
-                </div>
+                {% if row.confirm_or_no %}
+                    <div class="col-12">
+                        <span class="text-primary" style="color:#16139D"> {{ row.begin_date|date:"j F Y" }} - {{ row.end_date|date:"j F Y" }}  </span>
+                    </div>
+                {% endif %}
             {% endfor %}
         {% else %}
             <p class="text-success"> cette salle n'a pas encore été reservé </p>
