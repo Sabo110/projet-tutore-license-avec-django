@@ -1,0 +1,27 @@
+<!-- Button trigger modal -->
+<p><button type="button" class="btn {% if text == 'annuler' %} btn-danger {% elif text == 'confirmer' %} btn-success {% endif %} btn-sm px-4" data-bs-toggle="modal" data-bs-target="#exampleModal{{reservation.id}}">
+    {{text}} la reservation
+</button></p>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{reservation.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{text}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% if text == 'annuler' %}
+            voulez-vous <strong class="text-danger"> {{ text }} </strong> cette reservation ?
+          {% elif text == 'confirmer' %}
+            voulez-vous <strong class="text-success"> {{ text }} </strong> cette reservation ?
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark px-4 btn-sm" data-bs-dismiss="modal">fermer</button>
+          <button type="button" class="btn btn-warning btn_confirm_or_no px-5 btn-sm" data-idreservation="{{reservation.id}}" data-text="{{text}}">oui</button>
+        </div>
+      </div>
+    </div>
+  </div>

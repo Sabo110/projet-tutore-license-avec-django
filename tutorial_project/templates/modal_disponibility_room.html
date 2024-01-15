@@ -1,0 +1,34 @@
+<!--on affiche les jours ou cette salle a ete prise-->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{reservation.id}}{{reservation.id}}">
+    voir reservations de cette salle
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{reservation.id}}{{reservation.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{reservation.room.city}} - {{reservation.room.neighborhood}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {% if reservation.room.reservations.all %}
+                <ul>
+                        {% for reservation in reservation.room.reservations.all %}
+                            {% if reservation.confirm_or_no %}
+                                <li>  
+                                    {% if reservation.begin_date == reservation.end_date  %}Pris pour <strong>{{reservation.begin_date|date:"j F Y"}}</strong> {% else %} pris du <strong>{{ reservation.begin_date|date:"j F Y" }}</strong> au <strong>{{ reservation.begin_date|date:"j F Y" }}</strong> {% endif %}
+                                </li>
+                                {% with conf_present=true %}{% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-sm px-3" data-bs-dismiss="modal">fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>

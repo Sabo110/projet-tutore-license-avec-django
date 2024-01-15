@@ -1,0 +1,42 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block title %}member page{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-3 mt-3 sm-0">
+            <div class="col-12 align-self-center mb-3">
+                <h3 style="text-align:center;padding-top:10px">
+                    Demandes de reservations
+                </h3>
+            </div>
+        </div>    
+    </div>
+    <div class="container-fluid py-3 min-vh-100" style="background-color:#D9D9D9;">
+        {% if reservations %}
+            <div class="row gx-2">
+                {% for reservation in reservations %}
+                    {% include "reservation.html" %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <h4>Aucune demande de reservations!</h4>
+        {% endif %}
+    </div>
+    <style>
+        .container-fluid_2{
+            background-color:#D9D9D9
+        }
+       
+        #btn_detail{
+            font-size: 19px;
+            background-color: #075C67;
+            color: #FFFFFF;
+            margin-top: 0px;
+            text-decoration: none;
+            text-align: center;
+         
+        }
+    </style>
+{% endblock content %}

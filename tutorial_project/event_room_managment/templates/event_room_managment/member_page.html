@@ -5,50 +5,15 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row mb-3 mt-3 mt-3 sm-0">
+        <div class="row mt-3 mt-3">
             <div class="col-12 align-self-center">
                 <h3 style="text-align:center;padding-top:10px">
                     Rechercher une salle pour un évènement 
                 </h3>
             </div>
-
-
             <div class="col-sm-6 col-12" style="background-color:#F5F5F5; width:100%; height:450px">
-                <form action="" method="post" style="height:150px; width:100%;">
+                <form action="" method="post">
                     {% csrf_token %}
-                    <!--<div class="row gx-lg-5 gy-4 mb-5">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">type évènement</label>
-                            <select class="form-select" id="inlineFormSelectPref" name="room_type" required>
-                                <option>.........</option>
-                                <option value="1">Mariage</option>
-                                <option value="2">Anniversaire</option>
-                                <option value="3">Conférence</option>
-                                <option value="4">Reunion</option>
-                                <option value="5">Cerémonie</option>
-                              </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">budget</label>
-                            <select class="form-select" id="inlineFormSelectPref" name="daily_rate" required>
-                                <option>.........</option>
-                                <option value="1">10000</option>
-                                <option value="2">30000XAF - 60000XAF</option>
-                                <option value="3">60000XAF - 90000XAF</option>
-                              </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">ville</label>
-                            <input type="text" class="form-control" id="inputEmail4" name="city" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">quartier</label>
-                            <input type="text" class="form-control" id="inputEmail4" name="neighborhood" required>
-                        </div>
-                        <div class="col-auto mx-auto">
-                            <button type="submit" class="btn" style="background-color:#075C67; color: #FFFFFF;">Rechercher</button>
-                        </div>
-                    </div>-->
                     <div class="row mt-4">
                         {% for field in form %}
                             <div class="col-sm-6 col-12">
@@ -57,92 +22,32 @@
                             </div>
                         {% endfor %}
                         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mx-auto mt-4">
-                            <input type="submit" value="Rechecher" id="btn_detail">
+                            <input type="submit" value="Rechecher" style="background-color:#075C67; color: #FFF;">
                         </div>
                     </div>    
                 </form>
             </div>
-
-
-           
         </div>
     </div>
-   
-    <div class="container-fluid_2 container-fluid">
-        <div class="row g-2 py-3 justify-content-center" >
+    <div class="container-fluid" style="background-color:#075C67;">
+        <div class="row g-2 py-3 justify-content-center">
+            <!--on parcour la liste de salle-->
             {% for room in rooms %}
                 <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 " style="">
-                    <div class="card" style="max-width: 18rem; height: 100%;">
+                    <div class="card" style="max-width: 100%; height: 100%;">
                         <div class="card-body">
-                          <h5 class="card-title">{{ room.city }} - {{ room.neighborhood }}</h5>
-                          <p class="card-text">Prix journalier: <strong>{{ room.daily_rate }}XAF</strong></p>
-                          <a href="#" class="btn btn-dark py-1 px-4">Reserver</a>
+                            <h5 class="card-title text-capitalize">{{ room.city }} - {{ room.neighborhood }}</h5>
+                            <p class="card-text text-capitalize">Prix journalier: <strong>{{ room.daily_rate }}XAF</strong></p>
+                            {% include "modal_room.html" %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
-            <!--
-            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:30px; margin-bottom:10px">
-                <p style="margin-top:20px; margin-left:30px">prix journalier: 7500XAF</p>
-                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
-                    détail
-                </a>
-                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 22h00</p>
-            </div>
-            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:20px; margin-bottom:70px">
-                <p style="margin-top:20px; margin-left:30px">prix journalier: 2000XAF</p>
-                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
-                    détail
-                </a>
-                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 9h10</p>
-            </div>
-            <div class="col-12 col-sm-6 mx-auto" style="height:200px; width:450px;  background-color:#FFFFFF;margin-top:20px; margin-bottom:70px">
-                <p style="margin-top:20px; margin-left:30px">prix journalier: 5000XAF</p>
-                <a href="" class="btn px-5 d-grid gap-2 col-6 mx-auto" id="btn_detail">
-                    détail
-                </a>
-                <p style="margin-top:20px; margin-left:30px">publié le 18 novemebre 2021 à 18h45</p>
-            </div>
-            
-        </div>
-        <div class="row g-2" >
-            <nav aria-label="Page navigation example" style="margin-bottom:30px;">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-         </div>-->
         </div>
     </div>
+    
+    
     <style>
-        .container-fluid_2{
-            background-color:#075C67
-        }
-       
-        #btn_detail{
-            font-size: 19px;
-            background-color: #075C67;
-            color: #FFFFFF;
-            margin-top: 5px;
-            text-decoration: none;
-            text-align: center;
-         
-        }
-      
-        @media screen and (max-width: 1200px) {
-            .col-12 col-sm-6 mx-auto{
-                display: flex;
-                width: 100px;
-            }
-        }
     </style>
 
     <script>
@@ -155,6 +60,6 @@
             // ajoutons la classe form-control a chaque elements
             currentElement.classList.add('form-control');
         });
-
     </script>
+    
 {% endblock content %}

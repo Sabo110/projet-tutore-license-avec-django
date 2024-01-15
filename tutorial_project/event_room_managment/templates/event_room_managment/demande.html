@@ -12,33 +12,38 @@
                 </h3>
             </div>
             <HR>
+                {% include "flashback_success.html" %}
                 <div class="row">
                     <div class="col-12 mt-3">
                         <p>veuillez spécifier l’intervale de jour que vous souhaitez</p>
                     </div>     
                 </div>
         </div>
-        <div class="row g-3 align-items-center mt-5 mb-5">
-            <div class="col-auto">
-              <label for="inputDateD" class="col-form-label">date de  début:</label>
+        <form action="" method="post">
+            {% csrf_token %}
+        
+            <div class="row g-3 align-items-center mt-5 mb-5">
+                <div class="col-auto">
+                <label for="inputDateD" class="col-form-label">date de  début:</label>
+                </div>
+                <div class="col-auto">
+                <input type="date" id="inputDateD" class="form-control" name="begin_date" aria-describedby="">
+                </div>
             </div>
-            <div class="col-auto">
-              <input type="date" id="inputDateD" class="form-control" aria-describedby="">
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="inputDateF" class="col-form-label">date de  fin:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="date" id="inputDateF" class="form-control" name="end_date" aria-describedby="">
+                </div>
             </div>
-       </div>
-       <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                <label for="inputDateF" class="col-form-label">date de  fin:</label>
+            <div class="row g-3 align-items-center mt-5 mb-5">
+                <div class="col-auto">
+                    <button type="submit" class="btn" style="background-color:#075C67; color: #FFFFFF;">Envoyer la demande</button>
+                </div>
             </div>
-            <div class="col-auto">
-                <input type="date" id="inputDateF" class="form-control" aria-describedby="">
-            </div>
-        </div>
-        <div class="row g-3 align-items-center mt-5 mb-5">
-            <div class="col-auto">
-                <button type="submit" class="btn" style="background-color:#075C67; color: #FFFFFF;">Envoyer la demande</button>
-            </div>
-        </div>
+        </form>
    </div>
 
 {% endblock content %}

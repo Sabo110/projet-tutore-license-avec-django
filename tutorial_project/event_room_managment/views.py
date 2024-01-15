@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 
-from .models import Room, Picture
+from .models import Room, Picture, Reservation
 from .forms import RoomForm, RoomFormUpdate, SearchRoomForm
 
 
@@ -43,12 +43,34 @@ def detail(request):
     return render(request, 'event_room_managment/detail.html')
 
 # fonction qui affiche la page de demande d'une réservation
-def demande(request):
+def demande(request, id_room):#id_room: id de la salle qui veut etre reserve
+    #si le formulaire est soumit
+    if request.method == 'POST':
+        #on recupere les donnees
+        begin_date = request.POST.get('begin_date')
+        end_date = request.POST.get('end_date')
+        client = request.user
+        room = Room.objects.get(id=id_room)
+        #on cree la reservation
+        Reservation.objects.create(begin_date=begin_date, end_date=end_date, client=client, room=room)
+        # on cree le message de succes
+        messages.success(request, "Demande envoté avec succès")
     return render(request, 'event_room_managment/demande.html')   
 
 # fonction qui affiche la page de réservation
 def reservation(request):
-    return render(request, 'event_room_managment/reservation.html')   
+    # si l'utilisateur connecte est un client
+    if request.user.account_type == 'client':
+        # on recupere les reservations qu'ils a eu a effectuer
+        reservations = Reservation.objects.filter(client=request.user)
+        template = 'event_room_managment/reservation_client.html'
+    else:
+        # on recupere les demandes de reservations qui lui ont ete envoye
+        rooms_owner = Room.objects.filter(owner=request.user)
+        reservations = Reservation.objects.filter(room__in=rooms_owner)
+        print(reservations)
+        template = 'event_room_managment/reservations_owner.html'
+    return render(request, template, {'reservations': reservations})   
 
 # fonction qui affiche la page room detail
 def room_detail(request):

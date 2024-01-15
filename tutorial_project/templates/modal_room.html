@@ -1,0 +1,25 @@
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-dark px-5" data-bs-toggle="modal" data-bs-target="#exampleModal{{ room.id }}">
+    Reserver
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{ room.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel{{ room.id }}">Informations la salle</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% include "event_room_managment/room_detail.html" %}
+        </div>
+        <div class="modal-footer">
+          <a href="{% url "demande" id_room=room.id %}" class="btn btn-success">Demander une reservation</a>
+          <button type="button" class="btn btn-dark mx-auto" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

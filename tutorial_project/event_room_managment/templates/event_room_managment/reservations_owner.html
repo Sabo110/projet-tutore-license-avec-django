@@ -1,0 +1,72 @@
+{% extends "base2.html" %}
+
+{% block title %}reservations{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid py-3 min-vh-100">
+        <h3 style="text-align:center;padding-top:10px">
+            Demandes de reservations reçues
+        </h3>
+        {% if reservations %}
+            <div class="row gx-2 mt-3">
+                {% for reservation in reservations %}
+                    {% include "reservation.html" %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <h4>Aucune demande de reservations recue!</h4>
+        {% endif %}
+    </div>
+
+    <script>
+        send_request = (id_reservation, url, check) =>{
+            xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            // Écouter l'événement de changement d'état de la requête
+            xhr.onreadystatechange = () =>{
+                // si la requete est terminé
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            // Recharger la page actuelle
+                            window.location.reload();
+                        }
+                        else {
+                            console.log('Échec de la modification:', response.message);
+                        }
+                        
+                    }
+                }
+                else {
+                    console.log('requete en cour', xhr.status);
+                }
+            }
+            // Convertir les données en JSON et envoyer la requête
+            xhr.send(JSON.stringify({conf_ou_non: check}));
+        }
+
+        btn_confirm_or_no = document.querySelectorAll('.btn_confirm_or_no')
+        btn_confirm_or_no.forEach(function(element) {
+            element.addEventListener('click', () =>{
+                element.disabled = true
+                // on recupere l'id de la reservation a confirmer ou non
+                id_reservation = element.getAttribute('data-idreservation')
+                // on definit l'url vers laquelle faire la requete
+                url = `http://127.0.0.1:8000/confir_or_no_reservation/${id_reservation}/`
+                // on recupere la confirmation
+                text = element.getAttribute('data-text')
+                if (text == 'annuler') {
+                    check = false
+                }
+                else if (text == 'confirmer') {
+                    check = true
+                }
+                // on envoie la requete
+                send_request(id_reservation, url, check)
+            })
+        })
+    </script>
+    
+{% endblock content %}

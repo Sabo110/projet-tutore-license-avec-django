@@ -33,7 +33,7 @@ class Reservation(models.Model):
     reservation_date = models.DateTimeField(auto_now_add=True)
     begin_date = models.DateTimeField(null=False, blank=False)
     end_date = models.DateTimeField(null=False, blank=False)
-    pending = models.BooleanField(default=False) # en attente
+    pending = models.BooleanField(default=True) # en attente
     confirm_or_no = models.BooleanField(null=True) # confirmé ou non
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='reservations')
     client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
