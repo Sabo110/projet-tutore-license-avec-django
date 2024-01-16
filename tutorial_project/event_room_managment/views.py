@@ -67,8 +67,8 @@ def reservation(request):
     else:
         # on recupere les demandes de reservations qui lui ont ete envoye
         rooms_owner = Room.objects.filter(owner=request.user)
+        # on recupere les reservations dont les salles correspondent aux salles du proprietaire
         reservations = Reservation.objects.filter(room__in=rooms_owner)
-        print(reservations)
         template = 'event_room_managment/reservations_owner.html'
     return render(request, template, {'reservations': reservations})   
 

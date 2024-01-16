@@ -1,8 +1,8 @@
 <!--on affiche les jours ou cette salle a ete prise-->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{reservation.id}}{{reservation.id}}">
-    voir reservations de cette salle
-  </button>
+<p><button type="button" class="btn btn-dark btn-sm px-2" data-bs-toggle="modal" data-bs-target="#exampleModal{{reservation.id}}{{reservation.id}}">
+    reservations de cette salle
+  </button></p>
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal{{reservation.id}}{{reservation.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -14,7 +14,7 @@
         </div>
         <div class="modal-body">
             {% if reservation.room.reservations.all %}
-                <ul>
+                <ul class="p-2">
                         {% for reservation in reservation.room.reservations.all %}
                             {% if reservation.confirm_or_no %}
                                 <li>  

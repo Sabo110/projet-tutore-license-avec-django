@@ -1,12 +1,12 @@
 <!--le composant de reservation-->
 <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 ">
-    <div class="card shadow-sm" style="max-width: 100%; height: 100%;">
-        <div class="card-body">
+    <div class="card shadow-sm " style="max-width: 100%; height: 100%;">
+        <div class="card-body p-2">
             <p class="text-capitalize">évènement: <strong>{{ reservation.room.typ }}</strong></p>
             <p class="text-capitalize">salle: <strong> {{ reservation.room.city }} - {{ reservation.room.neighborhood }} </strong> </p>
             <p class="text-capitalize">envoyé le: <strong>{{ reservation.reservation_date|date:"j F Y" }}</strong></p>
             <p class="text-capitalize">par: <strong>{{ reservation.client.first_name }}</strong></p>
-            <p class="text-capitalize">a: <strong>{{ reservation.room.owner }}</strong></p>
+            <p class="text-capitalize">a: <strong>{{ reservation.room.owner.last_name }}</strong></p>
             <p>Reservé pour le:
                 {% if reservation.begin_date == reservation.end_date %} 
                      <strong>{{ reservation.begin_date|date:"j F Y" }}</strong>
@@ -19,9 +19,9 @@
                 {% if reservation.pending%}
                     <strong class="text-capitalize text-primary"> en attente </strong>
                     {% if user.account_type == 'owner' %}
-                        <p>
+                        
                             {% include "modal_disponibility_room.html" %}
-                        </p>
+                        
                         {% include "modal_confirm_or_no.html" with text='confirmer' %} {% include "modal_confirm_or_no.html" with text='annuler' %}
                     {% endif %}
                 <!--sinon-->
@@ -29,11 +29,11 @@
                     <!--si la reservation est confirmée-->
                     {% if reservation.confirm_or_no %}<!--s'il a confirmé la reservation-->
                             <strong class="text-capitalize text-success"> Confirmé </strong>
-                            {% if user.account_type == 'client' %} <p><a href="" class="btn btn-sm btn-dark">contacter le propriétaire<i class="bi bi-whatsapp ms-2"></i></a></p> {% endif %}
+                            {% if user.account_type == 'client' %} <p><a href=" https://wa.me/{{reservation.room.owner.phone_number}}" class="btn btn-sm btn-dark">contacter le propriétaire<i class="bi bi-whatsapp ms-2"></i></a></p> {% endif %}
                             {% if user.account_type == 'owner' %}
-                                <p>
+                                
                                     {% include "modal_disponibility_room.html" %}
-                                </p>
+                                
                                 {% include "modal_confirm_or_no.html" with text='annuler' %}
                                 
                             {% endif %}
@@ -41,9 +41,9 @@
                     {% else %}
                             <strong class="text-capitalize text-danger"> Annulé</strong>
                             {% if user.account_type == 'owner' %}
-                                <p>
+                                
                                     {% include "modal_disponibility_room.html" %}
-                                </p>
+                                
                                 {% include "modal_confirm_or_no.html" with text='confirmer' %}
                             {% endif %}
                     {% endif %}
