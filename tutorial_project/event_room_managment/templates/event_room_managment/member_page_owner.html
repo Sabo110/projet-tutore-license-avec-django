@@ -1,0 +1,48 @@
+{% extends "base2.html" %}
+
+{% block title %} member page owner {% endblock title %}
+
+{% block content %}
+    <div class="container min-vh-100">
+        <div class="row gx-2 gy-4 py-3 text-center justify-content-center">
+            <div class=" col-12 rounded bg-dark py-2 " style="">
+                <h3 class="text-center text-white">Votre espace privé!</h3>
+            </div>
+            <div class=" col-10 rounded bg-primary py-2">
+                <h4 class="text-center text-white">Vos statistiques</h4>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="card" style="max-width: 100%;">
+                    <div class="card-body py-5">
+                      <h5 class="card-title">Nombres de salles publiées:</h5>
+                      <h5 class="card-subtitle mb-2 text-body-secondary">{{ rooms.count }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="card" style="max-width: 100%;">
+                    <div class="card-body py-5">
+                      <h5 class="card-title">Demandes de reservations reçues:</h5>
+                      <h5 class="card-subtitle mb-2 text-body-secondary">{{ reservations.count }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="card" style="max-width: 100%;">
+                    <div class="card-body py-5">
+                      <h5 class="card-title">Demandes de reservations Confirmées:</h5>
+                      <h5 class="card-subtitle mb-2 text-body-secondary">{{ nb_reservations_confirme }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="card" style="max-width: 100%;">
+                    <div class="card-body py-5">
+                      <h5 class="card-title">Demandes de reservations annulées:</h5>
+                      <h5 class="card-subtitle mb-2 text-body-secondary">{{ nb_reservations_annule }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

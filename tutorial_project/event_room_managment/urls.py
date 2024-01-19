@@ -8,6 +8,7 @@ from . import fonctions
 urlpatterns = [
     path('', views.home_page, name='home_page'),
     path('members/', views.member_page, name='member_page'),
+    path('member_page_owner/', views.member_page_owner, name='member_page_owner'),
     path('profile/', views.profile, name='profile'),
     path('detail/', views.detail, name='detail'),
     path('demande/<int:id_room>/', views.demande, name='demande'),

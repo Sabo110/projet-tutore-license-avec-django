@@ -14,6 +14,8 @@ def home_page(request):
 
 # la fonction qui gere l'affichage de la page membre ou member page
 def member_page(request):
+    if request.user.account_type == 'owner':
+        return redirect('member_page_owner')
     # on verifie si l'utilisateur a soumis le formulaire
     if request.method == 'POST':
         # Associez le formulaire aux données POST
