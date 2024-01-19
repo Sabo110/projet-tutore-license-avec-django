@@ -36,6 +36,28 @@ def member_page(request):
    
     return render(request, 'event_room_managment/member_page.html', {'form': form, 'rooms': rooms})
 
+# la fonction qui affiche la page membre du owner
+def member_page_owner(request):
+    # on recupere les salles du owner
+    rooms_owner = Room.objects.filter(owner=request.user)
+    # on recupere les reservations dont les salles correspondent aux salles du proprietaire
+    reservations = Reservation.objects.filter(room__in=rooms_owner)
+    nb_con = 0
+    nb_an = 0
+    for reservation in reservations:
+        if reservation.confirm_or_no:
+            nb_con = nb_con + 1
+        else:
+            nb_an = nb_an + 1
+
+    context = {
+        'reservations': reservations,
+        'nb_reservations_confirme': nb_con,
+        'nb_reservations_annule': nb_an,
+        'rooms': rooms_owner
+    }
+    return render(request, 'event_room_managment/member_page_owner.html', context)
+
 # fonction qui affiche l'affichage du profil de l'utilisateur ie nom , date de naissance ...
 def profile(request):
     return render(request, 'event_room_managment/profile.html')
