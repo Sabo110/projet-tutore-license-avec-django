@@ -1,0 +1,18 @@
+{% extends "base2.html" %}
+
+{% block title %} options {% endblock title %}
+
+{% block content %}
+    <div class="container-fluid min-vh-100">
+        <div class="row gy-4 pt-5">
+            {% if user.account_type == 'owner' %}
+                <div class="col-12"><a href="{% url "reservation" %}" class="btn btn-primary d-block py-3">Demandes de reservations recues</a></div>
+                <div class="col-12"><a href="{% url "room_list" %}" class="btn btn-dark d-block py-3">Mes salles</a></div>
+                <div class="col-12"><a href="{% url "create_room" %}" class="btn btn-success d-block py-3">Publier une salle</a></div>
+            {% elif user.account_type == 'client' %}
+                <div class="col-12"><a href="{% url "reservation" %}" class="btn btn-primary d-block py-3">Mes demandes de reservations</a></div>
+                <div class="col-12"><a href="{% url "member_page" %}" class="btn btn-dark d-block py-3">Rechercher une salle</a></div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

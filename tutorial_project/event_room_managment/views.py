@@ -29,12 +29,17 @@ def member_page(request):
             neighborhood = form.cleaned_data.get('neighborhood')
             # on effectue la requete
             rooms = Room.objects.filter(typ=typ, city__icontains=city, neighborhood__icontains=neighborhood, daily_rate__lte=daily_rate)
+            if not rooms:
+                vide = True
+            else:
+                vide = False
     else:
         # on cree une instance du formulaire
         form = SearchRoomForm()
         rooms = []
+        vide = False
    
-    return render(request, 'event_room_managment/member_page.html', {'form': form, 'rooms': rooms})
+    return render(request, 'event_room_managment/member_page.html', {'form': form, 'rooms': rooms, 'vide': vide})
 
 # la fonction qui affiche la page membre du owner
 def member_page_owner(request):
@@ -190,6 +195,10 @@ def DeleteRoom(request, id):
     url = reverse_lazy('room_list') + f'?page={num_page}' # on cree l'url 
     # je dirige vers l'url
     return redirect(url)
+
+# la fonction qui affiche les fonctionnalites creer sale , demande reservation et autres sur mobile
+def fonctionality_on_mobile(request):
+    return render(request, 'event_room_managment/fonctionnalite_sur_mobile.html')
 
 
 
