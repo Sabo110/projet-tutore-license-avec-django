@@ -3,6 +3,8 @@ from django.views.generic import CreateView, UpdateView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Room, Picture, Reservation
 from .forms import RoomForm, RoomFormUpdate, SearchRoomForm
@@ -13,6 +15,7 @@ def home_page(request):
     return render(request, 'event_room_managment/home_page.html')
 
 # la fonction qui gere l'affichage de la page membre ou member page
+@login_required # le decorateur pour rendre la vue accesible uniquement quand on est connecté
 def member_page(request):
     if request.user.account_type == 'owner':
         return redirect('member_page_owner')
@@ -42,6 +45,7 @@ def member_page(request):
     return render(request, 'event_room_managment/member_page.html', {'form': form, 'rooms': rooms, 'vide': vide})
 
 # la fonction qui affiche la page membre du owner
+@login_required
 def member_page_owner(request):
     # on recupere les salles du owner
     rooms_owner = Room.objects.filter(owner=request.user)
@@ -64,6 +68,7 @@ def member_page_owner(request):
     return render(request, 'event_room_managment/member_page_owner.html', context)
 
 # fonction qui affiche l'affichage du profil de l'utilisateur ie nom , date de naissance ...
+@login_required
 def profile(request):
     return render(request, 'event_room_managment/profile.html')
 
@@ -72,6 +77,7 @@ def detail(request):
     return render(request, 'event_room_managment/detail.html')
 
 # fonction qui affiche la page de demande d'une réservation
+@login_required
 def demande(request, id_room):#id_room: id de la salle qui veut etre reserve
     #si le formulaire est soumit
     if request.method == 'POST':
@@ -87,6 +93,7 @@ def demande(request, id_room):#id_room: id de la salle qui veut etre reserve
     return render(request, 'event_room_managment/demande.html')   
 
 # fonction qui affiche la page de réservation
+@login_required
 def reservation(request):
     # si l'utilisateur connecte est un client
     if request.user.account_type == 'client':
@@ -108,7 +115,8 @@ def room_detail(request):
 
 
 # la classe qui va gerer la creation d'une sale
-class CreateRoom(CreateView):
+#LoginRequiredMixin oblige le user a etre connecte pour acceder a cette vue
+class CreateRoom(LoginRequiredMixin, CreateView):
     model = Room
     form_class = RoomForm
     template_name = 'event_room_managment/create_room.html'
@@ -127,6 +135,7 @@ class CreateRoom(CreateView):
 
 
 #la fonction qui affiche les sales cree ou publie par un utilisateur(owner)
+@login_required
 def RoomList(request):
     # on recupere l'utilisateur connecte
     user = request.user
@@ -143,7 +152,7 @@ def RoomList(request):
 
 
 # la classe qui va gerer la modification d'une sale
-class UpdateRoom(UpdateView):
+class UpdateRoom(LoginRequiredMixin, UpdateView):
     model = Room
     form_class = RoomFormUpdate
     template_name = 'event_room_managment/update_room.html'
@@ -183,6 +192,7 @@ class UpdateRoom(UpdateView):
 
 
 #la fonction pour supprimer une sale
+@login_required
 def DeleteRoom(request, id):
     # on recupere le numero de la page d'ou provient l'objet a supprimer
     num_page = request.GET.get('page', '1')
@@ -197,6 +207,7 @@ def DeleteRoom(request, id):
     return redirect(url)
 
 # la fonction qui affiche les fonctionnalites creer sale , demande reservation et autres sur mobile
+@login_required
 def fonctionality_on_mobile(request):
     return render(request, 'event_room_managment/fonctionnalite_sur_mobile.html')
 
